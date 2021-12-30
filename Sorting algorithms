@@ -1,0 +1,119 @@
+
+def selection_sort(array):
+    for i in range(0, len(array)-1):
+        min_index = i
+        for j in range(i+1, len(array)):
+            if array[j] < array[min_index]:
+                min_index = j
+        if i != min_index:
+            array[i], array[min_index] = array[min_index], array[i]
+
+
+l23 = random.choices(range(20, 200), k = 20)
+selection_sort(l23)
+print(f"Sorted list: {l23}")
+
+def insertion_sort(l):
+    for i in range(1, len(l)):
+        anchor = l[i]
+        j = i-1
+        while j >= 0 and l[j] > anchor:
+            l[j+1] = l[j]
+            j-=1
+        l[j+1] = anchor
+
+l20 = random.choices(range(100), k = 10)
+insertion_sort(l20)
+print(f"Sorted using insertion sorting: {l20}")
+
+
+def shell_sort(l):
+    size = len(l)
+    gap = size//2
+    while gap > 0:
+        for i in range(gap, size):
+            anchor = l[i]
+            j = i
+            while j >= gap and l[j-gap] > anchor:
+                l[j] = l[j-gap]
+                j-=gap
+            l[j] = anchor
+        gap//=2
+
+l100 = random.choices(range(10000), k = 15)
+shell_sort(l100)
+print(f"Sorted using shell sorting method: {l100}")
+
+
+def merge_sort(elements):
+    if len(elements) == 1:
+         return
+    size = len(elements)
+    mid = size//2
+    left = elements[:mid]
+    right = elements[mid:]
+    merge_sort(left)
+    merge_sort(right)
+    merge_sorted_lists(left, right, elements)
+
+def merge_sorted_lists(a, b, arr):
+    i = j = k = 0
+    while i < len(a) and j < len(b):
+        if a[i] >= b[j]:
+            arr[k] = b[j]
+            j += 1
+        else:
+            arr[k] = a[i]
+            i += 1
+        k += 1
+    while i < len(a):
+        arr[k] = a[i]
+        i += 1
+        k += 1
+    while j < len(b):
+        arr[k] = b[j]
+        j += 1
+        k += 1
+
+def lomuto_partition(start, end, elements):
+    pivot = elements[end]
+    p_idx = start
+    for i in range(start, end):
+        if elements[i] <= pivot:
+            elements[i], elements[p_idx] = elements[p_idx], elements[i]
+            p_idx += 1
+    elements[p_idx], elements[end] = elements[end], elements[p_idx]
+    return p_idx
+
+def hoare_partition(start, end, elements):
+    pivot_index = start
+    pivot = elements[pivot_index]
+    while start < end:
+        while start < len(elements) and elements[start] <= pivot:
+            start += 1
+        while elements[end] > pivot:
+            end -= 1
+        if start < end:
+            elements[start], elements[end] = elements[end], elements[start]
+    elements[pivot_index], elements[end] = elements[end], elements[pivot_index]
+    return end
+
+def bubble(l):
+    for i in range(len(l) - 1):
+        swapped = False
+        for j in range(len(l)-1-i):
+            if l[j] > l[j+1]:
+                l[j], l[j+1] = l[j+1], l[j]
+                swapped = True
+        if not swapped:
+            break
+
+
+
+def quick(start, end, elements):
+    if len(elements) == 1:
+        return
+    if start < end:
+        partition_index = hoare_partition(start, end, elements)
+        quick(start, partition_index - 1, elements)
+        quick(partition_index + 1, end, elements)
