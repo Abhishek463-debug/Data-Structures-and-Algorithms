@@ -1,0 +1,33 @@
+class TreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.children = []
+        self.parent = None
+
+    def add_child(self, child):
+        child.parent = self
+        self.children.append(child)
+
+    def get_level(self):
+        level = 0
+        dummy = self.parent
+        while dummy:
+            level += 1
+            dummy = dummy.parent
+
+        return level
+    
+    def print_tree(self):
+        prefix = "->"*self.get_level()
+        print(prefix + str(self.data))
+        for child in self.children:
+            child.print_tree()
+
+
+Computer = TreeNode("Computer")
+Computer.add_child(Laptop:=TreeNode("Laptop"))
+Laptop.add_child(TreeNode("Dell"))
+Laptop.add_child(TreeNode("Sony"))
+Computer.add_child(TreeNode("Desktop"))
+
+Computer.print_tree()
