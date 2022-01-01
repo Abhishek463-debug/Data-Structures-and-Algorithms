@@ -1,0 +1,77 @@
+class Node:
+    def __init__(self, val, next = None) -> None:
+        self.val = val
+        self.next = next
+
+class SLinkedList:
+    def __init__(self) -> None:
+        self.head = None
+
+    def insert_begin(self,val) -> None:
+        node = Node(val, self.head)
+        self.head = node
+    
+    def insert_end(self, val) -> None:
+        if self.head is None:
+            self.head = Node(val, None)
+            return
+        dummy = self.head
+        while dummy.next:
+            dummy = dummy.next
+
+        node = Node(val, None)
+        dummy.next = node
+    
+    def get_length(self) -> int:
+        count = 0
+        dummy = self.head
+        while dummy:
+            dummy = dummy.next
+            count += 1
+        return count
+
+    def insert_middle(self, val, idx) -> None:
+        if idx < 0 or idx > self.get_length():
+            print("Invalid Index")
+        else:
+            count = 0
+            dummy = self.head
+            while dummy:
+                if count == idx - 1:
+                    node = Node(val, dummy.next)
+                    dummy.next = node
+                    break
+                count += 1
+                dummy = dummy.next
+
+    def remove_idx(self, idx) -> None:
+        if idx < 0 or idx > self.get_length():
+            print("Invalid index")
+        else:
+            count = 0
+            dummy = self.head
+            while dummy:
+                if count == idx - 1:
+                    dummy.next = dummy.next.next
+                    break
+                dummy= dummy.next
+                count += 1
+
+    def print_list(self):
+        llstr = ""
+        dummy = self.head
+        while dummy:
+            llstr += str(dummy.val) + "->"
+            dummy = dummy.next
+        print(llstr)
+
+
+ll = SLinkedList()
+ll.insert_begin(1)
+ll.insert_begin(2)
+ll.insert_end(10)
+ll.insert_end(20)
+ll.insert_middle(5,2)
+ll.insert_middle(5,5)
+ll.print_list()
+        
