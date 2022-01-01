@@ -65,6 +65,22 @@ class SLinkedList:
             dummy = dummy.next
         print(llstr)
 
+    def reverse_print(self):
+        prev, curr = None, self.head
+        while curr:
+            dummy = curr.next
+            curr.next = prev
+            prev = curr
+            curr = dummy
+
+        ll_str = ""
+        dummy = prev
+        while dummy:
+            ll_str += str(dummy.val) + "->"
+            dummy = dummy.next
+        print(ll_str)
+        
+
 
 ll = SLinkedList()
 ll.insert_begin(1)
@@ -74,4 +90,7 @@ ll.insert_end(20)
 ll.insert_middle(5,2)
 ll.insert_middle(5,5)
 ll.print_list()
-        
+ll.remove_idx(3)
+ll.print_list()
+
+ll.reverse_print()
