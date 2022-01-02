@@ -1,0 +1,152 @@
+class BinaryTree:
+    def __init__(self, val, left = None, right = None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+    def add_child(self,val):
+        if val == self.val:
+            return
+        elif val < self.val:
+            if self.left:
+                self.left.add_child(val)
+            else:
+                self.left = BinaryTree(val)
+        else:
+            if self.right:
+                self.right.add_child(val)
+            else:
+                self.right = BinaryTree(val)
+
+    def search(self,val):
+        if val == self.val:
+            return True
+        elif val < self.val:
+            if self.left:
+                return self.left.search(val)
+            else:
+                return False
+        else:
+            if self.right:
+                return self.right.search(val)
+            else:
+                return False
+
+    def find_min(self):
+        if self.left:
+            return self.left.find_min()
+        else:
+            return self.val
+
+    def find_max(self):
+        if self.right:
+            return self.right.find_max()
+        else:
+            return self.val
+
+    def inorder(self):
+        elements = []
+        if self.left:
+            elements += self.left.inorder()
+        elements.append(self.val)
+        if self.right:
+            elements += self.right.inorder()
+
+        return elements
+
+    def postorder(self):
+        elements = []
+        if self.left:
+            elements += self.left.postorder()
+        if self.right:
+            elements += self.right.postorder()
+        elements.append(self.val)
+        return elements
+    
+    def preorder(self):
+        elements = []
+        elements.append(self.val)
+        if self.left:
+            elements += self.left.preorder()
+        if self.right:
+            elements += self.right.preorder()
+        return elements
+
+    def deletenode(self,val):
+        if val == self.val:
+            if self.left is None and self.right is None:
+                return None
+            elif self.left is None:
+                return self.right
+            elif self.right is None:
+                return self.right
+            
+            max_val = self.left.find_max()
+            self.val = max_val
+            self.left = self.left.deletenode(max_val)
+            
+
+        elif val < self.val:
+            if self.left:
+                self.left = self.left.deletenode(val)
+        else:
+            if self.right:
+                self.right = self.right.deletenode(val)
+
+        return self
+
+    def delete(self,val):
+        if val < self.val:
+            if self.left:
+                self.left = self.left.delete(val)
+        elif val > self.val:
+            if self.right:
+                self.right = self.right.delete(val)
+        else:
+            if self.left is None and self.right is None:
+                return None
+            if self.left is None:
+                return self.right
+            if self.right is None:
+                return self.right
+            
+            min_val = self.right.find_min()
+            self.val = min_val
+            self.left = self.left.delete(min_val)
+        return self
+            
+
+def build_balanced_tree(elements):
+    root = BinaryTree(elements[0])
+    for i in range(1, len(elements)):
+        root.add_child(elements[i])
+    return root
+
+one = BinaryTree(5)
+one.add_child(1)
+one.add_child(2)
+one.add_child(50)
+one.add_child(1000)
+two = build_balanced_tree([17,4,1,20,9,23,23,18,34])
+print(one.inorder())
+print(one.preorder())
+print(one.postorder())
+print(one.search(50))
+print(one.search(100))
+print(one.find_max())
+print(one.find_min())
+
+one.deletenode(1)
+print(one.inorder())
+
+
+print(two.inorder())
+print(two.preorder())
+print(two.postorder())
+print(two.search(50))
+print(two.search(100))
+print(two.find_max())
+print(two.find_min())
+
+two.delete(23)
+print(two.inorder())
