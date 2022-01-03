@@ -1,0 +1,77 @@
+class Graph:
+    def __init__(self, edges):
+        self.edges = edges
+        self.graph_dict = {}
+        for start, end in self.edges:
+            if start not in self.graph_dict:
+                self.graph_dict[start] = [end]
+            else:
+                self.graph_dict[start].append(end)
+        print(f"Graph dictionary for the input edges : {self.graph_dict}")
+
+    def get_all_paths(self, start, end, path = []):
+        path = path + [start]
+
+        if start == end:
+            return [path]
+        if start not in self.graph_dict:
+            return None
+
+        paths = []
+        for node in self.graph_dict[start]:
+            if node not in path:
+                new_path = self.get_all_paths(node, end, path)
+                for p in new_path:
+                    paths.append(p)
+        return paths
+
+    def get_shortest_path(self, start, end, path =[]):
+        path = path + [start]
+        if start == end:
+            return path
+        elif start not in self.graph_dict:
+            return None
+        shortest_path = None
+        for node in self.graph_dict[start]:
+            if node not in path:
+                new_path = self.get_shortest_path(node, end, path)
+                if new_path:
+                    if not shortest_path or len(new_path) < len(shortest_path):
+                        shortest_path = new_path
+                  
+            
+        return shortest_path
+
+    def least_size(self, start, end):
+        return len(self.get_shortest_path(start, end))
+    
+    
+ 
+routes = [("Mumbai", "Paris"),
+          ("Mumbai", "Dubai"),
+          ("Paris", "Dubai"),
+          ("Paris", "New York"),
+          ("Dubai", "New York"),
+          ("New York", "Toronto") ]
+
+route_graph = Graph(routes)
+print(route_graph.get_all_paths("Mumbai", "Mumbai"))
+print(route_graph.get_all_paths("Los Angeles", "Seattle"))
+print(route_graph.get_all_paths("Mumbai", "Toronto"))
+
+print(route_graph.get_shortest_path("Mumbai", "Toronto"))
+#Getting all minimum paths:
+min_size = None
+for path in route_graph.get_all_paths("Mumbai", "Toronto"):
+    if min_size is None or len(path) < min_size:
+        min_size = len(path)
+
+for path in route_graph.get_all_paths("Mumbai", "Toronto"):
+    if len(path) == min_size:
+        print(path)
+
+#CREATED A FUNCTION TO GET MIN SIZE (SLIGHTLY FASTER THAN TWO FOR LOOPS)
+minimum_size = route_graph.least_size("Mumbai", "Toronto")
+for path in route_graph.get_all_paths("Mumbai", "Toronto"):
+    if len(path) == minimum_size:
+        print(path, end = " ")
