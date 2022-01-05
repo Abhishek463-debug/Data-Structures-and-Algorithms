@@ -105,3 +105,15 @@ minimum_size = route_graph.least_size("Mumbai", "Toronto")
 for path in route_graph.get_all_paths("Mumbai", "Toronto"):
     if len(path) == minimum_size:
         print(path, end = " ")
+        
+print()
+
+
+print(list(route_graph.neighbors("Mumbai")))
+
+route_graph.removevertex("Dubai")
+print(list(route_graph.neighbors("Mumbai")))
+
+route_graph.addedges("Toronto", "Moscow")
+print(route_graph.get_all_paths("Mumbai", "Moscow"))
+print(route_graph.get_shortest_path("Mumbai", "Moscow"))
