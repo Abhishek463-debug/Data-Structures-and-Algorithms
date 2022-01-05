@@ -31,7 +31,7 @@ class Graph:
         for neighbor in listtodelete:
             self.removeedge(neighbor, v)
 
-        self._neighbors.pop(v)
+        self._neighbors.pop(v) #WE can also use del self._neighbors[v]
     
     def get_all_paths(self, start, end, path = []):
         path = path + [start]
