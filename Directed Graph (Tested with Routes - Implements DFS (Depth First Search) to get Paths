@@ -27,9 +27,9 @@ class Graph:
             
 
     def removevertex(self, v):
-        listtodelete = list(self.neighbors(v))
-        for neighbor in listtodelete:
-            self.removeedge(neighbor, v)
+        for i in self._neighbors:
+            if v in self._neighbors[i]:
+                self.removeedge(i,v) #This bit is changed from undirected graphs, as the edged are directed. i.e. in undirected: if v: {1,2,3} we can just go through the neighbors and removeedge(neighbor, v) and the vertex itself, but that doesn't work in undirected.
 
         self._neighbors.pop(v) #WE can also use del self._neighbors[v]
     
