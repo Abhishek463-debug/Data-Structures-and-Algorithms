@@ -119,7 +119,8 @@ def quick(start, end, elements):
         quick(partition_index + 1, end, elements)
 
 
-
+import random
+import heapq
 #INBUILT WAY TO SORT USING HEAPS
 def heapsort(elements):
     heapq.heapify(elements)
