@@ -1,0 +1,14 @@
+import heapq
+1) heapq.heapify(iterable) -> no return
+2) heapq.heappush(iterable, ele) -> no return
+3) heapq.heappop(iterable) -> get min value popped
+4) heapq.heappushpop(iterable,push_ele) -> get min value after new ele is pushed
+5) heapq.heapreplace(iterable, push_ele) -> popped first (min value), then iterable has push_ele pushed into it
+6) heapq.nlargest(n, iterable) -> returns list with n largest (in descending order)
+7) heapq.nsmallest(n, iterable) -> returns list with n smallest ( in ascending order)
+
+heapq.nlargest(len(heapifiediterable), heapifiediterable) -> reverse sorted list
+heapq.nsmallest(len(heapifiediterable), heapifiediterable) -> sorted list
+
+
+---> HEAPS/PRIORITY QUEUES are used to constantly extract min/max, also works well with extracting numbers, and dumping numbers in constantly. 
