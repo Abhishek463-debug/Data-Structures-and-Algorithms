@@ -12,3 +12,13 @@ heapq.nsmallest(len(heapifiediterable), heapifiediterable) -> sorted list
 
 
 ---> HEAPS/PRIORITY QUEUES are used to constantly extract min/max, also works well with extracting numbers, and dumping numbers in constantly. 
+
+if we want to use inbuilt min heap (heapq) for max, we can do iterable_input = map(lambda x: -1*x, iterable_input), extract whatever we need and multiply that with -1.
+
+Example:
+a = [1,2,3,4,5]
+a = list(map(lambda x: -x, a))
+heapq.heapify(a)
+print(-1*heapq.heappop(a))
+
+we get 5! Voila! It can act as a max heap now!
