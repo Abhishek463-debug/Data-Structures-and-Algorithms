@@ -117,3 +117,20 @@ def quick(start, end, elements):
         partition_index = hoare_partition(start, end, elements)
         quick(start, partition_index - 1, elements)
         quick(partition_index + 1, end, elements)
+
+
+
+#INBUILT WAY TO SORT USING HEAPS
+def heapsort(elements):
+    heapq.heapify(elements)
+    print(heapq.nsmallest(len(elements), elements))
+
+def reversed_heapsort(elements):
+    heapq.heapify(elements)
+    print(heapq.nlargest(len(elements), elements))
+
+elements = random.choices(range(-100, 50), k = 12)
+heapsort(elements)
+
+elements = random.choices(range(-50, 32), k = 15)
+reversed_heapsort(elements)
